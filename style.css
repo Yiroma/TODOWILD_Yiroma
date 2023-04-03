@@ -1,0 +1,445 @@
+/* 
+@site - To Do Wild
+@author - Romaric Yi 'Yiroma'
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+    box-sizing: border-box;
+}
+
+html {
+    position: fixed;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    font-size: 1.2rem;
+    font-family: 'Noto Sans', sans-serif;
+    background: linear-gradient(150deg, rgba(199,206,245,1) 0%, rgba(215,238,242,1) 33%, rgba(232,240,241,1) 100%);
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.dark-theme {
+    color: white;
+    background-image: linear-gradient(60deg, rgba(18, 26, 64, 1) 0%, rgba(21, 87, 140, 1) 50%, rgba(52, 147, 199, 1) 100%);
+}
+
+main {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 70px; /* position par rapport au header */
+    bottom: 70px; /* position par rapport au footer */
+    overflow: auto; /* barre de scroll si nécessaire */
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+
+/* HEADER --- START */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
+svg {
+    width: 40vw;
+    min-width: 150px;
+    max-width: 300px;
+    height: auto;
+    fill: #4773b5;
+}
+
+.dark-theme svg {
+    fill: #99b4df;
+}
+
+.switch {
+	position: relative;
+	width: 50px;
+	height: 25px;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.switch input + span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background:#4773b5;
+    border-radius: 20px;
+}
+
+.switch input:checked + span {
+	background: #99b4df;
+}
+
+.switch input + span:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    width: 17px;
+    height: 17px;
+    background: whitesmoke;
+    background-image: url(./assets/sun_icon.png);
+    background-size: contain;
+    border: 2px solid whitesmoke;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: all .5s;
+}
+
+.switch input:checked + span:before {
+    background: #f3f2ef;
+    border: 2px solid #f3f2ef;
+    background-image: url(./assets/moon_icon.png);
+    background-size: contain;
+	left: 26px;
+}
+
+/* HEADER --- END */
+
+/* SECTION POST-IT --- START */
+
+#post-it-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/3, max(15vw, 130px, 100%/7)), 1fr));
+    gap: 10px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 600px) {
+    #post-it-container {
+    width: 60%;
+    position: absolute;
+    left: 2%;
+}
+}
+
+.btnAddPostIt {
+    width: 100px;
+    height: 40px;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50px, -20px);
+    position: fixed;
+    font-size: 28px;
+    border-radius: 8px;
+    background: linear-gradient(150deg, rgba(71,115,181,1) 0%, rgba(121,139,181,1) 100%);
+    color: whitesmoke;
+    border: 1px solid gray;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
+
+@media screen and (min-width: 600px) {
+    .btnAddPostIt {
+        width: 60%;
+        height: 40px;
+        bottom: 10px;
+        left: 2%;
+        transform: initial;
+        position: fixed;
+        font-size: 28px;
+        border-radius: 8px;
+        background: linear-gradient(150deg, rgba(71,115,181,1) 0%, rgba(121,139,181,1) 100%);
+        color: whitesmoke;
+        border: 1px solid gray;
+        box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.15);
+        z-index: 2;
+    }
+}
+
+.post-it {
+    width: 100%;
+    height: 100%;
+    padding: 0px 15px;
+    border-radius: 10px;
+    background: linear-gradient(150deg, rgba(71,115,181,1) 0%, rgba(121,139,181,1) 100%);
+    box-shadow: 1px 3px 8px 0px rgba(38, 38, 38, 0.35);
+    color: white;
+    cursor: pointer;
+    aspect-ratio: 1;
+}
+
+.openPostIt {
+    position: fixed;
+    width: 95%;
+    height: 78%;
+    z-index: 1;
+}
+
+@media screen and (min-width: 600px) {
+    .openPostIt{
+    position: fixed;
+    right: 2%;
+    width: 35%;
+    height: 80%;
+    z-index: 1;
+    }
+}
+
+.post-it-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+.post-it-header button {
+    margin-right: 6px;
+    display: none;
+	background-color: rgba(255, 0, 0, 0.40);
+	color: white;
+	border: none;
+	border-radius: 50%;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.add-todo-form {
+    display: none;
+    justify-content: space-between;
+}
+
+.add-todo-form input {
+    width: 80%;
+    padding-left: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background: rgba(245, 245, 245, 0.8);
+}
+
+.add-todo-form button {
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
+    border: 1px solid gray;
+    border-radius: 50%;
+    background: rgba(245, 245, 245, 0.8);
+}
+
+/* SECTION POST-IT --- END */
+
+/* SECTION TO-DO-LIST --- START */
+
+.todo-list {
+    flex-direction: column;
+    list-style-type: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 68%;
+}
+
+.todo-list li {
+	padding: 5px 0;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #bbb;
+}
+
+.todo-list li input[type="checkbox"] {
+	margin-right: 5px;
+}
+
+/* SECTION TO-DO-LIST --- END */
+
+/* CHANGE COLOR --- START */
+
+.post-it-color {
+    width: 80%;
+    height: 2rem;
+    border-radius: 8px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(240, 248, 255, 0.8);
+    display: none;
+    bottom: 85px;
+}
+
+.post-it-color button {
+    width: 20px;
+    height: 20px;
+    border-radius: 20%;
+    border: none;
+    cursor: pointer;
+}
+
+.post-it-color button.yellow {
+    background: linear-gradient(150deg, rgba(212,171,89,1) 0%, rgba(249,230,169,1) 100%);
+}
+
+.post-it-color button.blue {
+    background: linear-gradient(150deg, rgba(89,141,212,1) 0%, rgba(169,237,249,1) 100%);
+}
+
+.post-it-color button.red {
+    background: linear-gradient(150deg, rgba(185,83,83,1) 0%, rgba(235,159,159,1) 100%);
+}
+
+.post-it-color button.green {
+    background: linear-gradient(150deg, rgba(110,168,75,1) 0%, rgba(179,227,155,1) 100%);
+}
+
+/* CHANGE COLOR --- END */
+
+/* FOOTER --- START */
+
+footer {
+    position: fixed;
+    justify-content: space-between;
+    padding: 10px;
+    bottom: 0;
+    width: 30%;
+    height: 80px;
+    background-color: transparent;
+    z-index: 0;
+}
+
+
+
+.btnContact {
+    margin: 5px 0 0 10px;
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    background: transparent;
+    color: gray;
+    z-index: 2;
+}
+
+.dark-theme .btnContact {
+    color: #f3f2ef;
+    border-color: #f3f2ef;
+}
+
+button .textBtnContact {
+    display: none;
+}
+
+@media screen and (min-width: 600px) {
+    .btnContact {
+        margin-top: 20px;
+        position: absolute;
+        right: -227%;
+        width: 117%;
+        height: 40px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+
+    button .textBtnContact {
+        display: initial;
+    }
+}
+
+#formContact {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    width: 95vw;
+    height: 78vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: linear-gradient(150deg, rgb(130, 170, 230) 0%, rgb(168, 183, 216) 100%);
+    color: gray;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+
+.dark-theme #formContact {
+    color: whitesmoke;
+    border-color: #f3f2ef;
+    background-image: linear-gradient(60deg, rgba(18, 26, 64, 1) 0%, rgba(21, 87, 140, 1) 50%, rgba(52, 147, 199, 1) 100%);
+}
+
+.contact p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact p input {
+    padding: 5px;
+    width: 80vw;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background: #f5f5f5c0;
+}
+
+.contact p textarea {
+    padding: 5px;
+    width: 80vw;
+    height: auto;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background: #f5f5f5c0;
+}
+
+.btnSubmit {
+    height: 40px;
+    position: absolute;
+    bottom: 15px;
+    background: #f5f5f5c0;
+}
+
+.contact p label {
+    margin: 5px;
+}
+
+.contact .error {
+    font-size: 0.6rem;
+    color: red;
+}
+
+@media screen and (min-width: 600px) {
+    #formContact {
+    position: absolute;
+    width: 35%;
+    height: 100%;
+    z-index: 1;
+    top: 0%;
+    left: 63%;
+    transform: translate(0px, 0px);
+    }
+    
+    .contact p input {
+        width: 33vw;
+    }
+    
+    .contact p textarea {
+        padding: 5px;
+        width: 33vw;
+        height: auto;
+        border: 1px solid gray;
+        border-radius: 5px;
+        background: #f5f5f5c0;
+    }
+
+}
